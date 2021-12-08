@@ -1,0 +1,41 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #fff;
+    overflow-x: hidden;
+}
+
+/* Hero background image */
+.hero {
+    background-image: url(../images/clay-kaufmann-wn5XW0Au6s0-unsplash.jpg);
+}
+
+.label {
+    color: #363636;
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+
+.title {
+    color: hsl(204, 86%, 53%)
+}
+  
+.subtitle {
+    color: orange;
+}
+
+  
+/* Footer */
+.footer  {
+    padding: .3rem 1rem;
+    background-color: orange;
+}
