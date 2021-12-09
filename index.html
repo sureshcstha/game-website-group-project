@@ -71,7 +71,7 @@
     <section class="section">
       <div class="container column is-12 has-text-centered">
         <h2 class="title" id="leaderboard">Leaderboard</h2>
-        <p class="subtitle mb-3">Overall Standing</p>
+        <p class="subtitle mb-5">Overall Standing</p>
 
         <div class='container'>
               <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
@@ -265,6 +265,7 @@
   }
 
   function addAllItemsToTable(ThePlayer){
+      ThePlayer.reverse();
       stdNo = 0;
       tbody.innerHTML = "";
       ThePlayer.forEach(element => {
@@ -288,16 +289,18 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
 
-  import {getDatabase, ref, child, onValue, get}
+  import {getDatabase, ref, child, onValue, get, 
+    query, limitToFirst, limitToLast, orderByChild, 
+    startAt, startAfter, endAt, endBefore, equalTo }
   from "https://www.gstatic.com/firebasejs/9.3.0/firebase-database.js"
 
   const db = getDatabase();
 
 
   function getAllDataOnce(){
-      const dbRef = ref(db);
+      const dbRef = query(ref(db), orderByChild("userScore"), limitToLast(10));  
 
-      get(child(dbRef, "TheStudents"))
+      get(dbRef)
       .then((snapshot)=>{
           var players = [];
 
@@ -309,7 +312,7 @@
   }
 
   function getAllDataRealtime(){
-      const dbRef = ref(db);
+      const dbRef = query(ref(db), orderByChild("userScore"), limitToLast(10)); 
 
       onValue(dbRef, (snapshot)=>{
           var players = [];
