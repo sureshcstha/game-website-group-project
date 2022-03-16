@@ -234,17 +234,20 @@
     </div>
     <div class="column is-8 is-offset-2">
       <form
-        action="https://formspree.io/email@example.com"
+        id="contactForm"
+        action="https://formsubmit.co/95281b515f5b213a7dccd0ee6bc60a0f "
         method="POST"
       >
+      <input type="hidden" name="_subject" value="Email from Thunder Beast Studio Website!">
         <div class="field">
-          <label class="label">Name</label>
+          <label class="label required">Name</label>
           <div class="control has-icons-left">
             <input
               class="input"
               type="text"
               placeholder="Ex. Suresh Shrestha"
               name="Name"
+              required
             />
             <span class="icon is-small is-left">
               <i class="fas fa-user"></i>
@@ -252,13 +255,14 @@
           </div>
         </div>
         <div class="field">
-          <label class="label">Email</label>
+          <label class="label required">Email</label>
           <div class="control has-icons-left">
             <input
               class="input"
               type="email"
               placeholder="Ex. hello@gmail.com"
               name="Email"
+              required
             />
             <span class="icon is-small is-left">
               <i class="fas fa-envelope"></i>
@@ -266,12 +270,27 @@
           </div>
         </div>
         <div class="field">
-          <label class="label">Message</label>
+          <label class="label">Phone</label>
+          <div class="control has-icons-left">
+            <input
+              class="input"
+              type="tel"
+              placeholder="Ex. 3334445555"
+              name="Phone"
+            />
+            <span class="icon is-small is-left">
+              <i class="fas fa-phone fa-flip-horizontal"></i>
+            </span>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label required">Message</label>
           <div class="control">
             <textarea
               class="textarea"
               placeholder="Textarea"
               name="Message"
+              required
             ></textarea>
           </div>
         </div>

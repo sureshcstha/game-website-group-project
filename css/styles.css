@@ -39,3 +39,9 @@ html, body {
     padding: .3rem 1rem;
     background-color: orange;
 }
+
+/* Add required field asterisks to form inputs */
+.required:after {
+    content:" *";
+    color: red;
+  }
