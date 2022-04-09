@@ -18,7 +18,7 @@
             <nav class="navbar">
                 <div class="container">
                   <div class="navbar-brand">
-                    <a class="navbar-item">
+                    <a class="navbar-item" href="index.html">
                       <img src="images/logo.png" alt="Logo">
                     </a>
                     <span class="navbar-burger burger" data-target="navbarMenuHeroA">
@@ -29,7 +29,7 @@
                   </div>
                   <div id="navbarMenuHeroA" class="navbar-menu">
                     <div class="navbar-end">
-                      <a class="navbar-item">
+                      <a href="index.html" class="navbar-item">
                         Home
                       </a>
                       <a href="#leaderboard" class="navbar-item">
@@ -40,6 +40,9 @@
                       </a>
                       <a href="#contact-us" class="navbar-item">
                         Contact
+                      </a>
+                      <a href="weblogin.html" class="navbar-item" id="login">
+                        Login 
                       </a>
                     </div>
                   </div>
@@ -85,8 +88,6 @@
               </table>
         </div>
               
-
-
       </div>
     </section>
 
@@ -131,10 +132,6 @@
                   
                   There's something mystifying about him, perhaps it's his company or perhaps it's simply his warmth. But nonetheless, people tend to salute him in the streets, while helping him out in any way they can.</p>
               </div>
-
-            
-
-            
 
             <div class="column is-3">
               <div class="level">
@@ -202,8 +199,6 @@
                     There's something charming about him, perhaps it's a feeling of shame or perhaps it's simply his reputation. Nonetheless, people tend to treat him like family, while awkwardly avoid talking about his past.</p>
                   </div>
                   
-                
-
                 <div class="column is-3">
                   <div class="level">
                     <div class="level-item">
@@ -224,8 +219,6 @@
               </div>
           </div>
       </section>
-
-
 
     <div class="column is-12 about-me">
       <br><h1 id="contact-us" class="title has-text-centered section-title">
@@ -327,7 +320,6 @@
       })();
     </script>
 
-
       <!-- Firebase SDK setup and configuration -->
       <script type="module">
 
@@ -360,7 +352,7 @@
             });
         }
 
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
 
         // Your web app's Firebase configuration
         const firebaseConfig = {
@@ -380,9 +372,10 @@
         import {getDatabase, ref, child, onValue, get, 
           query, limitToFirst, limitToLast, orderByChild, 
           startAt, startAfter, endAt, endBefore, equalTo }
-        from "https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js"
+        from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js"
 
         const db = getDatabase();
+        // const auth = getAuth();
 
 
         function getAllDataOnce(){
@@ -416,7 +409,6 @@
         
       </script>
 
-    
   </body>
 
 </html>
