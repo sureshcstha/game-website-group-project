@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login: Thunder Beast</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Quicksand" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="css/loginform.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+
+<body>
+    <section class="hero is-fullheight is-info">
+        <!-- Hero head: will stick at the top -->
+        <div class="hero-head">
+            <nav class="navbar">
+                <div class="container">
+                  <div class="navbar-brand">
+                    <a class="navbar-item" href="index.html">
+                      <img src="images/logo.png" alt="Logo">
+                    </a>
+                    <span class="navbar-burger burger" data-target="navbarMenuHeroA">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </span>
+                  </div>
+                  <div id="navbarMenuHeroA" class="navbar-menu">
+                    <div class="navbar-end">
+                      <a href="index.html" class="navbar-item">
+                        Home
+                      </a>
+                      <a class="navbar-item" id="logout">
+                        Logout 
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+        </div>
+
+        <section class="hero is-fullheight">
+          <div class="hero-body has-text-centered">
+            <div class="container">
+                <div class="signup-form">
+                    <div class="main">  	
+                        <input type="checkbox" id="chk" aria-hidden="true">
+                            <div class="signup">
+                                <form id="signup-form">
+                                    <label for="chk" aria-hidden="true">Sign Up</label>
+                                    <input type="text" name="txt" id="signup-username" placeholder="User name" required />
+                                    <input type="email" name="signup-email" id="signup-email" placeholder="Email" required />
+                                    <input type="password" name="signup-password" id="signup-password" placeholder="Password" required />
+                                    <button class="button is-info" type="button" id="submitSignupData" name="submitSignupData">Sign Up</button>
+                                </form>
+                            </div>
+                
+                            <div class="login">
+                                <form id="login-form">
+                                    <label for="chk" aria-hidden="true">Login</label>
+                                    <input type="email" name="login-email" id="login-email" placeholder="Email" required />
+                                    <input type="password" name="login-password" id="login-password" placeholder="Password" required />
+                                    <button class="button is-info" type="button" id="submitLoginData" name="submitLoginData">Login</button>
+                                </form>
+                            </div>
+                    </div>
+                </div>
+
+            </div>
+          </div>
+        </section>
+        <br />
+
+    </section>
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+          <p>
+            &copy; 2021-2022 Thunder Beast. All rights reserved.
+          </p>
+        </div>
+      </footer>
+</body>
+</html>
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+    import {
+        getAuth,
+        createUserWithEmailAndPassword,
+        signInWithEmailAndPassword,
+        signOut
+    } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+    import {getDatabase, set, ref, update} from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
+
+
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyDP3EiVFshKZfS6Ddgy39o1570d6YQs66g",
+        authDomain: "tower-defense-50897.firebaseapp.com",
+        databaseURL: "https://tower-defense-50897-default-rtdb.firebaseio.com",
+        projectId: "tower-defense-50897",
+        storageBucket: "tower-defense-50897.appspot.com",
+        messagingSenderId: "585120430823",
+        appId: "1:585120430823:web:eebf2529cafbe68ac14042",
+        measurementId: "${config.measurementId}"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+    const database = getDatabase(app);
+
+    submitSignupData.addEventListener('click', (e) => {
+
+        var registerUsername = document.getElementById('signup-username').value;
+        var registerEmail = document.getElementById('signup-email').value;
+        var registerPassword = document.getElementById('signup-password').value;
+
+        //sign up user
+        createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
+            .then((userCredential) => {
+                // Signed in
+                const user = userCredential.user;
+                // ... user.uid
+                // save sign up details into real time database (make inital user score zero for all levels)
+                set(ref(database, 'users/' + user.uid), {
+                    username: registerUsername,
+                    email: registerEmail,
+                    levelOne: 0,
+                    levelTwo: 0,
+                    levelThree: 0,
+                    levelFour: 0,
+                    levelFive: 0,
+                })
+                    .then(() => {
+                        // Data saved successfully!
+                        alert('user created successfully');
+        
+                    })
+                    .catch((error) => {
+                        // The write failed...
+                        alert(error);
+                    });
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // ..
+                alert(errorMessage);
+            });
+
+    });
+
+    submitLoginData.addEventListener('click', (e) => {
+
+        var loginEmail = document.getElementById('login-email').value;
+        var loginPassword = document.getElementById('login-password').value;
+
+        // log in user
+        signInWithEmailAndPassword(auth, loginEmail, loginPassword)
+        .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            // ...
+
+            // save log in details into real time database
+            var lgDate = new Date();
+            update(ref(database, 'users/' + user.uid), {
+                last_login: lgDate,
+            })
+                .then(() => {
+                    // Data saved successfully!
+                    alert('user logged in successfully');
+
+                })
+                .catch((error) => {
+                    // The write failed...
+                    alert(error);
+                });
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            alert(errorMessage);
+        });
+
+    });
+
+    logout.addEventListener('click', (e) => {
+
+        // sign out user
+        signOut(auth).then(() => {
+               // Sign-out successful.
+               alert('Sign-out successful.');
+        }).catch((error) => {
+            // An error happened.
+            alert(error);
+        });
+
+    });
+
+</script>
